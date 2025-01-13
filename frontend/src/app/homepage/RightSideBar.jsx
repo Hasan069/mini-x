@@ -3,8 +3,8 @@ import { ModeToggle } from "@/components/ModeToggle";
 const RightSideBar = () => {
   return (
     <div>
-      <ModeToggle />
       RightSideBar
+      <ModeToggle />
     </div>
   );
 };

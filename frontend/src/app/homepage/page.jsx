@@ -7,7 +7,7 @@ import RightSideBar from "./RightSideBar";
 const page = () => {
   return (
     <>
-      <div className="flex mx-44 p-0 divide-x">
+      <div className="h-full flex mx-[400px] p-0 divide-x">
         <LeftSidebar />
         <Separator orientation="vertical" />
         <MidSection />
