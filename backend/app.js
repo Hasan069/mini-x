@@ -1,9 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import { checkConnection } from "./config/db.js";
 import createAllTable from "./utils/dbUtils.js";
 import authRoutes from "./routes/authRoutes.js";
-import cors from "cors";
 
 const app = express();
 app.use(express.json());

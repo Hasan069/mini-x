@@ -2,6 +2,7 @@ import { pool } from "../config/db.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import sendWelcomeEmail from "../services/emailService.js";
 dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET; // Ensure this is set in your .env file
@@ -21,12 +22,14 @@ export const registerUser = async (user) => {
     const query = `INSERT INTO users (username, email, password) VALUES (?, ?, ?)`;
     const values = [user.username, user.email, hashedPassword];
     await pool.query(query, values);
+    await sendWelcomeEmail(user.email, user.username);
+
     return { success: true, message: "User registered successfully" };
   } catch (error) {
     console.error("Registration error:", error);
     return {
       success: false,
-      message: "Registration failed. Please try again later.",
+      message: "Registration failed. Error during registration.",
     };
   }
 };

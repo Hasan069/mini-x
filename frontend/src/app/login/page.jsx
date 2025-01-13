@@ -1,16 +1,15 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import twitterIcon from "@/assets/x-logo.svg";
 import appleIcon from "@/assets/apple.svg";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import axios from "axios";
 
 const LoginPage = () => {
   const [errors, setErrors] = useState({});
@@ -32,7 +31,6 @@ const LoginPage = () => {
       setErrors(newErrors);
       return;
     }
-
     setErrors({});
     console.log("User data:", user);
 
@@ -44,9 +42,16 @@ const LoginPage = () => {
       );
       console.log(response);
 
+      //cookies
+      axios
+        .get("http://localhost:5500/protected-route", { withCredentials: true }) // Ensures cookies are sent
+        .then((response) => console.log(response.data))
+        .catch((error) => console.error("Error:", error));
+
       // Handle success (e.g., navigate to another page or show a success message)
       console.log("Signup successful:", response.data);
       toast.success("logged in");
+
       router.push("/"); // Redirect to login page
     } catch (error) {
       // Handle error (e.g., show error messages)
@@ -63,6 +68,7 @@ const LoginPage = () => {
       setErrors((prev) => ({ ...prev, [field]: "" }));
     }
   };
+
   return (
     <div className="bg-black h-screen">
       <div className="h-[950px] flex justify-center items-center m-0 p-0">
@@ -103,7 +109,12 @@ const LoginPage = () => {
             <Separator className="my-4 w-32" />
           </div>
           {/* input form */}
-          <form className="" onSubmit={onLogin}>
+          <form
+            className=""
+            onSubmit={() => {
+              onLogin, handleCookieOnLogin;
+            }}
+          >
             <div className="m-0 pt-2">
               <Label htmlFor="email">Email</Label>
               {/* Email */}
