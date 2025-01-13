@@ -10,15 +10,52 @@ import appleIcon from "@/assets/apple.svg";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const SignupPage = () => {
   const router = useRouter();
+  const [errors, setErrors] = useState({});
   const [user, setUser] = useState({
     email: "",
     password: "",
     username: "",
   });
 
-  const onSignup = () => {};
+  const onSignup = async (e) => {
+    e.preventDefault();
+    const newErrors = {};
+    //checks the user field is null or not
+    if (!user.username.trim()) newErrors.username = "Username is required";
+    if (!user.email.trim()) newErrors.email = "Email is required";
+    if (!user.password.trim()) newErrors.password = "Password is required";
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors); // Set errors if found
+      return;
+    }
+    setErrors({});
+    console.log("User data:", user);
+
+    try {
+      // Send data to the backend
+      const response = await axios.post("http://localhost:5001/signup", user);
+
+      // Handle success (e.g., navigate to another page or show a success message)
+      console.log("Signup successful:", response.data);
+      router.push("/login"); // Redirect to login page
+    } catch (error) {
+      // Handle error (e.g., show error messages)
+      console.error("Signup failed:", error.response?.data || error.message);
+      setErrors({
+        server: error.response?.data?.message || "Something went wrong",
+      });
+    }
+  };
+
+  //handling input. throws error if field is empty.
+  const handleInputChange = (field, value) => {
+    setUser({ ...user, [field]: value });
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: "" }));
+    }
+  };
 
   return (
     <div className="bg-black h-screen">
@@ -58,52 +95,71 @@ const page = () => {
             <Separator className="my-4 w-32" /> <div className="mx-2">or</div>
             <Separator className="my-4 w-32" />
           </div>
-          <div className="m-0 pt-2">
-            <Label htmlFor="Username">Username</Label>
-            <Input
-              className="h-12 w-72"
-              id="email"
-              placeholder="username"
-              type="text"
-              value={user.username}
-              onChange={(e) => {
-                setUser({ ...user, username: e.target.value });
-              }}
-            />
-          </div>
-          <div className="m-0 pt-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              className="h-12 w-72"
-              id="email"
-              placeholder="Email"
-              type="text"
-              value={user.email}
-              onChange={(e) => {
-                setUser({ ...user, email: e.target.value });
-              }}
-            />
-          </div>
-          <div className=" mt-3 p-0">
-            <Label htmlFor="email">Password</Label>
-            <Input
-              className="h-12 w-72"
-              id="password"
-              placeholder="password"
-              type="password"
-              value={user.password}
-              onChange={(e) => {
-                setUser({ ...user, password: e.target.value });
-              }}
-            />
-          </div>
-          <Button variant="secondary" className="mt-3" onClick={onSignup}>
-            Signup
-          </Button>
+          {/* input form */}
+          <form className="" onSubmit={onSignup}>
+            <div className="m-0 pt-2">
+              {/* username */}
+              <Label htmlFor="username">Username</Label>
+              <Input
+                className={`h-12 w-72 ${
+                  errors.username ? "border-red-500" : ""
+                }`}
+                id="username"
+                placeholder="username"
+                type="text"
+                autoComplete="on"
+                value={user.username}
+                onChange={(e) => handleInputChange("username", e.target.value)}
+                required={true}
+              />
+              {errors.username && (
+                <p className="text-red-500 text-sm">{errors.username}</p>
+              )}
+            </div>
+            {/* Email */}
+            <div className="m-0 pt-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                className={`h-12 w-72 ${errors.email ? "border-red-500" : ""}`}
+                id="email"
+                placeholder="Email"
+                type="text"
+                autoComplete="on"
+                value={user.email}
+                onChange={(e) => handleInputChange("email", e.target.value)}
+                required={true}
+              />
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email}</p>
+              )}
+            </div>
+            {/* password */}
+            <div className=" mt-3 p-0">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                className={`h-12 w-72 ${
+                  errors.password ? "border-red-500" : ""
+                }`}
+                id="password"
+                placeholder="password"
+                autoComplete="off"
+                type="password"
+                value={user.password}
+                onChange={(e) => handleInputChange("password", e.target.value)}
+                required={true}
+              />
+              {errors.password && (
+                <p className="text-red-500 text-sm">{errors.password}</p>
+              )}
+            </div>
+            <Button variant="secondary" className="mt-3" onClick={onSignup}>
+              Signup
+            </Button>
+          </form>
           <div>
             <button
               type="button"
-              className="h-12 w-72 mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm  text-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="h-12 w-72 mt-8 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm  text-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               onClick={() => router.push("/login")}
             >
               Sign in
@@ -115,4 +171,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SignupPage;

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,9 +10,36 @@ import appleIcon from "@/assets/apple.svg";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const LoginPage = () => {
+  const [errors, setErrors] = useState({});
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
   const router = useRouter();
 
+  const onLogin = (e) => {
+    e.preventDefault();
+    const newErrors = {};
+
+    // checking if the field is null or not
+    if (!user.email.trim()) newErrors.email = "Email is required";
+    if (!user.password.trim()) newErrors.password = "Password is required";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
+    console.log("User data:", user);
+  };
+  const handleInputChange = (field, value) => {
+    setUser({ ...user, [field]: value });
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: "" }));
+    }
+  };
   return (
     <div className="bg-black h-screen">
       <div className="h-[950px] flex justify-center items-center m-0 p-0">
@@ -39,7 +66,7 @@ const page = () => {
               <span className="">Login with Google</span>
             </button>
           </div>
-          <button class="mt-1 px-4 py-2 border flex gap-2 w-72 rounded-3xl  bg-white text-black items-center justify-center">
+          <button className="mt-1 px-4 py-2 border flex gap-2 w-72 rounded-3xl  bg-white text-black items-center justify-center">
             <Image
               priority
               src={appleIcon}
@@ -52,21 +79,53 @@ const page = () => {
             <Separator className="my-4 w-32" /> <div className="mx-2">or</div>
             <Separator className="my-4 w-32" />
           </div>
-          <div className="m-0 pt-2">
-            <Label htmlFor="email">Email</Label>
-            <Input className="h-12 w-72" id="email" placeholder="Email" />
-          </div>
-          <div className=" mt-3 p-0">
-            <Label htmlFor="email">Password</Label>
-            <Input className="h-12 w-72" id="password" placeholder="password" />
-          </div>
-          <Button variant="secondary" className="mt-3">
-            Login
-          </Button>
+          {/* input form */}
+          <form className="" onSubmit={onLogin}>
+            <div className="m-0 pt-2">
+              <Label htmlFor="email">Email</Label>
+              {/* Email */}
+              <Input
+                className={`h-12 w-72 ${errors.email ? "border-red-500" : ""}`}
+                id="email"
+                type="text"
+                autoComplete="on"
+                placeholder="Email"
+                value={user.email}
+                onChange={(e) => handleInputChange("email", e.target.value)}
+                required={true}
+              />
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email}</p>
+              )}
+            </div>
+            {/* password */}
+            <div className=" mt-3 p-0">
+              <Label htmlFor="password">Password</Label>
+
+              <Input
+                className={`h-12 w-72 ${
+                  errors.password ? "border-red-500" : ""
+                }`}
+                id="password"
+                placeholder="password"
+                type="password"
+                value={user.password}
+                autoComplete="off"
+                onChange={(e) => handleInputChange("password", e.target.value)}
+                required={true}
+              />
+              {errors.password && (
+                <p className="text-red-500 text-sm">{errors.password}</p>
+              )}
+            </div>
+            <Button variant="secondary" className="mt-3 " onClick={onLogin}>
+              Login
+            </Button>
+          </form>
           <div>
             <button
               type="button"
-              className="h-12 w-72 mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm  text-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="h-12 w-72 mt-8 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm  text-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               onClick={() => router.push("/signup")}
             >
               Create Account
@@ -78,4 +137,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default LoginPage;
