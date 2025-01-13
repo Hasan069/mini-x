@@ -18,7 +18,7 @@ export const registerUser = async (user) => {
     }
 
     const hashedPassword = await bcrypt.hash(user.password, 10);
-    const query = `INSERT INTO users (name, email, password) VALUES (?, ?, ?)`;
+    const query = `INSERT INTO users (username, email, password) VALUES (?, ?, ?)`;
     const values = [user.username, user.email, hashedPassword];
     await pool.query(query, values);
     return { success: true, message: "User registered successfully" };
@@ -38,7 +38,7 @@ export const loginUser = async (email, password) => {
       email,
     ]);
     if (rows.length === 0) {
-      return { success: false, message: "User not found" };
+      return { success: false, message: "email not found" };
     }
 
     const user = rows[0];

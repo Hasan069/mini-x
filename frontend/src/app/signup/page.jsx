@@ -9,14 +9,16 @@ import twitterIcon from "@/assets/x-logo.svg";
 import appleIcon from "@/assets/apple.svg";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const SignupPage = () => {
   const router = useRouter();
   const [errors, setErrors] = useState({});
   const [user, setUser] = useState({
+    username: "",
     email: "",
     password: "",
-    username: "",
   });
 
   const onSignup = async (e) => {
@@ -35,14 +37,20 @@ const SignupPage = () => {
 
     try {
       // Send data to the backend
-      const response = await axios.post("http://localhost:5001/signup", user);
+      const response = await axios.post(
+        "http://localhost:5500/api/auth/register-user",
+        user
+      );
+      console.log(response);
 
       // Handle success (e.g., navigate to another page or show a success message)
       console.log("Signup successful:", response.data);
+      toast.success("Signup Successfully!");
       router.push("/login"); // Redirect to login page
     } catch (error) {
       // Handle error (e.g., show error messages)
       console.error("Signup failed:", error.response?.data || error.message);
+      toast.error("Signup failed! User Already exist");
       setErrors({
         server: error.response?.data?.message || "Something went wrong",
       });

@@ -9,6 +9,8 @@ import twitterIcon from "@/assets/x-logo.svg";
 import appleIcon from "@/assets/apple.svg";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const LoginPage = () => {
   const [errors, setErrors] = useState({});
@@ -18,7 +20,7 @@ const LoginPage = () => {
   });
   const router = useRouter();
 
-  const onLogin = (e) => {
+  const onLogin = async (e) => {
     e.preventDefault();
     const newErrors = {};
 
@@ -33,6 +35,27 @@ const LoginPage = () => {
 
     setErrors({});
     console.log("User data:", user);
+
+    try {
+      // Send data to the backend
+      const response = await axios.post(
+        "http://localhost:5500/api/auth/login",
+        user
+      );
+      console.log(response);
+
+      // Handle success (e.g., navigate to another page or show a success message)
+      console.log("Signup successful:", response.data);
+      toast.success("logged in");
+      router.push("/"); // Redirect to login page
+    } catch (error) {
+      // Handle error (e.g., show error messages)
+      console.error("login failed:", error.response?.data || error.message);
+      toast.error("user unavailable or wrong password");
+      setErrors({
+        server: error.response?.data?.message || "Something went wrong",
+      });
+    }
   };
   const handleInputChange = (field, value) => {
     setUser({ ...user, [field]: value });
