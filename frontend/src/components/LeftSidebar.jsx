@@ -22,15 +22,12 @@ import { Button } from "./ui/button";
 const LeftSidebar = () => {
   return (
     <>
-      <div
-        className="py-4 text-white fixed
-                 top-0 left-44"
-      >
+      <div className="py-4 text-white fixed top-0 left-64">
         <Image
           priority
           src={twitterIcon1}
           alt="Follow us on Twitter"
-          className="h-[44px] w-[40px]"
+          className="h-[40px] w-[40px] rounded-full"
         />
 
         <div className="h-9 text-xl mt-5">
