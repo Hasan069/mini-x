@@ -49,10 +49,10 @@ const LoginPage = () => {
         .catch((error) => console.error("Error:", error));
 
       // Handle success (e.g., navigate to another page or show a success message)
-      console.log("Signup successful:", response.data);
+      console.log("Login successful:", response.data);
       toast.success("logged in");
 
-      router.push("/"); // Redirect to login page
+      router.push("/homepage"); // Redirect to login page
     } catch (error) {
       // Handle error (e.g., show error messages)
       console.error("login failed:", error.response?.data || error.message);
@@ -160,7 +160,7 @@ const LoginPage = () => {
             <button
               type="button"
               className="h-12 w-72 mt-8 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm  text-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              onClick={() => router.push("/signup")}
+              onClick={() => router.push("/homepage")}
             >
               Create Account
             </button>

@@ -22,7 +22,15 @@ const RightSideBar = () => {
           <WhatisHappenning />
           <WhoToFollow />
         </div>
-        <footer>like subscribe</footer>
+        <div className="text-sm my-2 mx-1">
+          <span className="mx-1">Terms of Service</span>
+          <span className="mx-1">Privacy Policy</span>
+          <span className="mx-1">Cookie Policy</span>
+          <span className="mx-1">Accessibility</span>
+          <span className="mx-1">Ads info</span>
+          <span className="mx-1">More...</span>
+          <span className="mx-1">© 2025 X Corp.</span>
+        </div>
       </div>
     </div>
   );

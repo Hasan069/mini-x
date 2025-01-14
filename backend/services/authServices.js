@@ -34,7 +34,7 @@ export const registerUser = async (user) => {
   }
 };
 
-// Login User with JWT token
+// Login User
 export const loginUser = async (email, password) => {
   try {
     const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [
