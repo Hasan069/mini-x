@@ -44,4 +44,3 @@ const sendWelcomeEmail = async (userEmail, username) => {
 };
 
 export default sendWelcomeEmail;
-// module.exports = { sendWelcomeEmail };

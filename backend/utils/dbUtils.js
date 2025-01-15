@@ -25,6 +25,18 @@ const createTable = async (tableName, query) => {
   }
 };
 
+/*
+CREATE TABLE user_follows (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    follower_id INT NOT NULL,
+    following_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_follow (follower_id, following_id),
+    FOREIGN KEY (follower_id) REFERENCES users(id),
+    FOREIGN KEY (following_id) REFERENCES users(id)
+);
+*/
+
 const createAllTable = async () => {
   try {
     await createTable("Users", userTableQuery);

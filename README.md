@@ -16,7 +16,9 @@ This project is a mini version of X (formerly known as Twitter) built as part of
 
 ![Signup](screenshots/signup.png)
 ![Login](screenshots/login.png)
+![welcomeMail](screenshots/welcomeMail.png)
 ![Homepage](screenshots/homepage.png)
+![HomepageWhiteTheme](screenshots/HomepageWhiteTheme.png)
 
 ## Features Not Fully Implemented
 
