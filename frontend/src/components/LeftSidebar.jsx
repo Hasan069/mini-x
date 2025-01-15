@@ -22,65 +22,105 @@ import { Button } from "./ui/button";
 const LeftSidebar = () => {
   return (
     <>
-      <div className="py-4 text-white fixed top-0 left-64">
+      <div className="py-4 text-white fixed top-0 left-60">
         <Image
           priority
           src={twitterIcon1}
           alt="Follow us on Twitter"
-          className="h-[40px] w-[40px] rounded-full"
+          className="h-[40px] w-[40px] rounded-full absolute left-2"
         />
 
-        <div className="h-9 text-xl mt-5">
-          <div className="flex gap-5 text-black dark:text-white">
-            <House /> Home
-          </div>
-          <div className="my-5 flex gap-5 text-black dark:text-white">
+        <div className="h-9 text-xl mt-12">
+          <Button
+            className="flex gap-5 text-xl h-12 rounded-full  text-left"
+            variant="ghost"
+          >
+            <House />
+            Home
+          </Button>
+          <Button
+            className="flex gap-5 text-xl h-12 rounded-full  text-left"
+            variant="ghost"
+          >
             <Search /> Explore
-          </div>
-          <div className="my-5 flex gap-5 text-black dark:text-white">
+          </Button>
+          <Button
+            className="flex gap-5 text-xl h-12 rounded-full  text-left"
+            variant="ghost"
+          >
             <BellDot />
             Notification
-          </div>
-          <div className="my-5 flex gap-5 text-black dark:text-white">
+          </Button>
+          <Button
+            className="flex gap-5 text-xl h-12 rounded-full  text-left"
+            variant="ghost"
+          >
             <Mail />
             Messages
-          </div>
-          <div className="my-5 flex gap-5 text-black dark:text-white">
+          </Button>
+          <Button
+            className="flex gap-5 text-xl h-12 rounded-full  text-left"
+            variant="ghost"
+          >
             <Bot />
             Grok
-          </div>
-          <div className="my-5 flex gap-5 text-black dark:text-white">
+          </Button>
+          <Button
+            className="flex gap-5 text-xl h-12 rounded-full  text-left"
+            variant="ghost"
+          >
             <Rows2 /> Lists
-          </div>
-          <div className="my-5 flex gap-5 text-black dark:text-white">
+          </Button>
+          <Button
+            className="flex gap-5 text-xl h-12 rounded-full  text-left"
+            variant="ghost"
+          >
             <Bookmark />
             Bookmark
-          </div>
-          <div className="my-5 flex gap-5 text-black dark:text-white">
+          </Button>
+          <Button
+            className="flex gap-5 text-xl h-12 rounded-full  text-left"
+            variant="ghost"
+          >
             <BriefcaseBusiness />
             Jobs
-          </div>
-          <div className="my-5 flex gap-5 text-black dark:text-white">
+          </Button>
+          <Button
+            className="flex gap-5 text-xl h-12 rounded-full  text-left"
+            variant="ghost"
+          >
             <Users />
             Communities
-          </div>
-          <div className="my-5 flex gap-5 text-black dark:text-white">
+          </Button>
+          <Button
+            className="flex gap-5 text-xl h-12 rounded-full  text-left"
+            variant="ghost"
+          >
             <X />
             Premium
-          </div>
-          <div className="my-5 flex gap-5 text-black dark:text-white">
+          </Button>
+          <Button
+            className="flex gap-5 text-xl h-12 rounded-full  text-left"
+            variant="ghost"
+          >
             <Zap />
             Varified Orgs
-          </div>
-          <div className="my-5 flex gap-5 text-black dark:text-white">
+          </Button>
+          <Button
+            className="flex gap-5 text-xl h-12 rounded-full  text-left"
+            variant="ghost"
+          >
             <User />
             Profile
-          </div>
-          <div className="my-5 flex gap-5 text-black dark:text-white">
+          </Button>
+          <Button
+            className="flex gap-5 text-xl h-12 rounded-full  text-left"
+            variant="ghost"
+          >
             <CircleEllipsis />
             More
-          </div>
-          <Button className="w-48 rounded-3xl">Post</Button>
+          </Button>
+          <Button className="w-48 rounded-3xl mt-3">Post</Button>
           <div className="mt-10 flex gap-5">
             <ScanFace />
             Tanvir Hasan
