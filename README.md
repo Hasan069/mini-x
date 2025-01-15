@@ -79,6 +79,8 @@ These features are in progress and can be added in future updates.
 
 8. Open the application in your browser at `http://localhost:3000`.
 
+9. To visit homepage go to `http://localhost:3000/homepage`.
+
 ## Project Highlights
 
 - **Authentication**: Secure user authentication with validation and email confirmation.
